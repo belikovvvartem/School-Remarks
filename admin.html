@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Адмін-панель</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .class-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; }
+        .modal.active { display: block; }
+        .checkbox-list { max-height: 200px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>Адмін-панель</h1>
+
+    <h2>Список класів</h2>
+    <div id="classButtons" class="class-buttons"></div>
+
+    <h2>Додати урок</h2>
+    <input type="text" id="subjectName" placeholder="Назва уроку (наприклад, Англійська мова)">
+    <button id="addSubjectBtn">Додати</button>
+
+    <h2>Додати вчителя</h2>
+    <input type="text" id="teacherName" placeholder="Ім'я вчителя">
+    <input type="text" id="teacherCode" placeholder="Код доступу (4 цифри)">
+    <div class="checkbox-list" id="teacherSubjects"></div>
+    <div class="checkbox-list" id="teacherClasses"></div>
+    <button id="addTeacherBtn">Додати</button>
+
+    <div id="studentModal" class="modal">
+        <h3>Додати учня до <span id="modalClassName"></span></h3>
+        <input type="text" id="studentName" placeholder="Ім'я учня">
+        <input type="text" id="parentCode" placeholder="Код для батьків (4 цифри)">
+        <button id="saveStudentBtn">Зберегти</button>
+        <button onclick="document.getElementById('studentModal').classList.remove('active')">Закрити</button>
+    </div>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/admin.js"></script>
+</body>
+</html>

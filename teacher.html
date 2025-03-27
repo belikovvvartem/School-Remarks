@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати зауваження</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1 id="teacherGreeting">Вітаємо!</h1>
+    <select id="subjectSelect">
+        <option disabled selected>Виберіть предмет</option>
+    </select>
+    <select id="classSelect" onchange="loadStudents(this.value)">
+        <option disabled selected>Виберіть клас</option>
+    </select>
+    <select id="studentSelect">
+        <option disabled selected>Виберіть учня</option>
+    </select>
+    <textarea id="remarkText" placeholder="Текст зауваження"></textarea>
+    <button id="addRemarkBtn">Відправити</button>
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/teacher.js"></script>
+</body>
+</html>
