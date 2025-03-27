@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Адмін-панель</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Адмін-панель</h1>
+  <input type="password" id="adminPass" placeholder="Введіть пароль адміна">
+  <button onclick="loginAdmin()">Увійти</button>
+  <div id="adminPanel" style="display:none;">
+    <h2>Додати вчителя</h2>
+    <input type="text" id="teacherName" placeholder="Ім’я вчителя">
+    <input type="text" id="teacherCode" placeholder="Код (3 цифри, залиште пустим для автогенерації)">
+    <h3>Предмети:</h3>
+    <label><input type="checkbox" name="subject" value="Українська мова"> Українська мова</label><br>
+    <label><input type="checkbox" name="subject" value="Українська література"> Українська література</label><br>
+    <label><input type="checkbox" name="subject" value="Англійська мова"> Англійська мова</label><br>
+    <label><input type="checkbox" name="subject" value="Німецька мова"> Німецька мова</label><br>
+    <label><input type="checkbox" name="subject" value="Французька мова"> Французька мова</label><br>
+    <label><input type="checkbox" name="subject" value="Математика"> Математика</label><br>
+    <label><input type="checkbox" name="subject" value="Алгебра"> Алгебра</label><br>
+    <label><input type="checkbox" name="subject" value="Геометрія"> Геометрія</label><br>
+    <label><input type="checkbox" name="subject" value="Інформатика"> Інформатика</label><br>
+    <label><input type="checkbox" name="subject" value="Історія України"> Історія України</label><br>
+    <label><input type="checkbox" name="subject" value="Всесвітня історія"> Всесвітня історія</label><br>
+    <label><input type="checkbox" name="subject" value="Географія"> Географія</label><br>
+    <label><input type="checkbox" name="subject" value="Фізика"> Фізика</label><br>
+    <label><input type="checkbox" name="subject" value="Хімія"> Хімія</label><br>
+    <label><input type="checkbox" name="subject" value="Біологія"> Біологія</label><br>
+    <label><input type="checkbox" name="subject" value="Екологія"> Екологія</label><br>
+    <label><input type="checkbox" name="subject" value="Природознавство"> Природознавство</label><br>
+    <label><input type="checkbox" name="subject" value="Основи здоров’я"> Основи здоров’я</label><br>
+    <label><input type="checkbox" name="subject" value="Фізична культура"> Фізична культура</label><br>
+    <label><input type="checkbox" name="subject" value="Трудове навчання"> Трудове навчання</label><br>
+    <label><input type="checkbox" name="subject" value="Образотворче мистецтво"> Образотворче мистецтво</label><br>
+    <label><input type="checkbox" name="subject" value="Музичне мистецтво"> Музичне мистецтво</label><br>
+    <label><input type="checkbox" name="subject" value="Захист України"> Захист України</label><br>
+    <label><input type="checkbox" name="subject" value="Правознавство"> Правознавство</label><br>
+    <label><input type="checkbox" name="subject" value="Економіка"> Економіка</label><br>
+    <label><input type="checkbox" name="subject" value="Громадянська освіта"> Громадянська освіта</label><br>
+    <h3>Класи:</h3>
+    <div id="classes">
+    </div>
+    <button onclick="addTeacher()">Додати вчителя</button>
+
+    <h2>Додати учня</h2>
+    <input type="text" id="studentName" placeholder="Ім’я учня">
+    <select id="studentClass">
+    </select>
+    <input type="text" id="studentCode" placeholder="Код (3 цифри, залиште пустим для автогенерації)">
+    <button onclick="addStudent()">Додати учня</button>
+
+    <h2>Зауваження</h2>
+    <div id="remarksList"></div>
+  </div>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
