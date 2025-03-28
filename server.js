@@ -1,6 +1,6 @@
 const { Telegraf, Markup } = require('telegraf');
 const { db } = require('./firebase-config-node');
-const { collection, getDocs, addDoc, onSnapshot, query, where, updateDoc, doc } = require('firebase/firestore');
+const { collection, getDocs, addDoc, onSnapshot, query, where } = require('firebase/firestore');
 require('dotenv').config();
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
@@ -21,7 +21,6 @@ bot.on('text', async (ctx) => {
 
     if (!teachersSnapshot.empty) {
       const teacher = teachersSnapshot.docs[0].data();
-      teacher.chatId = chatId; 
       teacherSessions.set(chatId, { teacher, step: 'main' });
       showMainMenu(ctx, teacher.name);
     } else if (!studentsSnapshot.empty) {
@@ -47,11 +46,9 @@ bot.on('text', async (ctx) => {
         class: session.class,
         student: session.student,
         text,
-        timestamp: new Date().toISOString(),
-        parentViewed: false 
+        timestamp: new Date().toISOString()
       };
-      const remarkRef = await addDoc(collection(db, 'remarks'), remark);
-      session.remarkId = remarkRef.id; 
+      await addDoc(collection(db, 'remarks'), remark);
       ctx.reply('Зауваження успішно додано!');
       teacherSessions.set(chatId, { teacher: session.teacher, step: 'main' });
       showMainMenu(ctx, session.teacher.name);
@@ -157,98 +154,22 @@ bot.action('main_menu', (ctx) => {
   showMainMenu(ctx, session.teacher.name);
 });
 
-bot.action(/viewed_(.+)/, async (ctx) => {
-  const remarkId = ctx.match[1];
-  const chatId = ctx.from.id;
-
-  console.log(`Кнопка "Переглянуто" натиснута для remarkId: ${remarkId}, chatId: ${chatId}`);
-
-  const remarkRef = doc(db, 'remarks', remarkId);
-  await updateDoc(remarkRef, {
-    parentViewed: true,
-    parentViewedTimestamp: new Date().toISOString()
-  });
-
-  const remarkSnapshot = await getDocs(query(collection(db, 'remarks'), where('__name__', '==', remarkId)));
-  if (remarkSnapshot.empty) {
-    console.log(`Зауваження з ID ${remarkId} не знайдено`);
-    return;
-  }
-  const remark = remarkSnapshot.docs[0].data();
-
-  const teacherSnapshot = await getDocs(query(collection(db, 'teachers'), where('name', '==', remark.teacher)));
-  if (!teacherSnapshot.empty) {
-    const teacher = teacherSnapshot.docs[0].data();
-    const teacherChatId = teacherSessions.get(chatId)?.teacher.chatId || teacher.chatId;
-
-    if (teacherChatId) {
-      console.log(`Надсилаємо сповіщення вчителю ${teacher.name} на chatId: ${teacherChatId}`);
-      bot.telegram.sendMessage(
-        teacherChatId,
-        `Батько учня ${remark.student} побачив ваше зауваження ✅.`
-      );
-    } else {
-      console.log(`chatId вчителя ${teacher.name} не знайдено`);
-    }
-  } else {
-    console.log(`Вчитель ${remark.teacher} не знайдено`);
-  }
-
-  try {
-    await ctx.editMessageText(
-      `Нове зауваження:\n${remark.teacher} (${remark.subject}, ${remark.class}): ${remark.student} - ${remark.text}\n✅ Переглянуто`,
-      { reply_markup: { inline_keyboard: [] } } 
-    );
-    console.log(`Повідомлення для батьків оновлено для remarkId: ${remarkId}`);
-  } catch (error) {
-    console.error(`Помилка при оновленні повідомлення для батьків: ${error.message}`);
-  }
-});
-
 onSnapshot(collection(db, 'remarks'), (snapshot) => {
   snapshot.docChanges().forEach(async (change) => {
     if (change.type === 'added') {
       const remark = change.doc.data();
-      const remarkId = change.doc.id;
-
-      console.log(`Нове зауваження додано: ${remarkId}, student: ${remark.student}, parentViewed: ${remark.parentViewed}`);
-
-      if (!remark.parentViewed) {
-        const studentsSnapshot = await getDocs(query(collection(db, 'students'), where('name', '==', remark.student)));
-        if (studentsSnapshot.empty) {
-          console.log(`Учень ${remark.student} не знайдено`);
-          return;
-        }
-
-        studentsSnapshot.forEach((studentDoc) => {
-          const studentCode = studentDoc.data().code;
-          console.log(`Знайдено учня ${remark.student} з кодом ${studentCode}`);
-
-          parentSubscriptions.forEach((codes, parentId) => {
-            console.log(`Перевіряємо parentId: ${parentId}, codes: ${codes}`);
-            if (codes.includes(studentCode)) {
-              console.log(`Надсилаємо повідомлення батьку ${parentId} для учня ${studentCode}`);
-              bot.telegram.sendMessage(
-                parentId,
-                `Нове зауваження:\n${remark.teacher}\n(${remark.subject},\n${remark.class}):\${remark.student} - ${remark.text}`,
-                {
-                  reply_markup: {
-                    inline_keyboard: [
-                      [{ text: 'Переглянуто ✅', callback_data: `viewed_${remarkId}` }]
-                    ]
-                  }
-                }
-              ).then(() => {
-                console.log(`Повідомлення успішно надіслано батьку ${parentId}`);
-              }).catch((error) => {
-                console.error(`Помилка при надсиланні повідомлення батьку ${parentId}: ${error.message}`);
-              });
-            } else {
-              console.log(`Код ${studentCode} не знайдено в підписках parentId: ${parentId}`);
-            }
-          });
+      const studentsSnapshot = await getDocs(query(collection(db, 'students'), where('name', '==', remark.student)));
+      studentsSnapshot.forEach((studentDoc) => {
+        const studentCode = studentDoc.data().code;
+        parentSubscriptions.forEach((codes, parentId) => {
+          if (codes.includes(studentCode)) {
+            bot.telegram.sendMessage(
+              parentId,
+              `Нове зауваження:\n${remark.teacher} (${remark.subject}, ${remark.class}): ${remark.student} - ${remark.text}`
+            );
+          }
         });
-      }
+      });
     }
   });
 });
