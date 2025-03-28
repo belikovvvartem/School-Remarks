@@ -1,10 +1,15 @@
 @import url(https://fonts.googleapis.com/css2?family=Oswald:wght@100;200;300;400;500;600;700&display=swap);
 
 
+:root {
+    --main-light: #e1bb80;
+    --main-dark: #352208;
+}
+
 body {
     font-family: 'Oswald', sans-serif;
-    background: #00272b;
-    color: #e0ff4f;
+    background: var(--main-dark);
+    color: var(--main-light);
     touch-action: manipulation;
     user-select: none;
     -webkit-user-select: none;
@@ -20,7 +25,20 @@ body {
 
 a {
     text-decoration: none;
-    color: #e0ff4f;
+    color: var(--main-light);
+}
+
+.section {
+    display: none;
+  }
+  .active {
+    display: block;
+  }
+
+
+#navAnalytics button {
+width: 45%;
+height: 60px;
 }
 
 #logIn {
@@ -38,30 +56,30 @@ input:not(#select-sub input, #form input),
 button, select {
     width: 300px;
     height: 40px;
-    background: #00272b;
-    border: 3px solid #e0ff4f;
+    background: var(--main-dark);
+    border: 3px solid var(--main-light);
     border-radius: 100px;
     padding: 0 20px;
     box-sizing: border-box;
-    color: #e0ff4f;
+    color: var(--main-light);
     margin-top: 15px;
 }
 
 input::placeholder {
-    color: #e0ff4f;
+    color: var(--main-light);
 }
 
 #addTeacher{
     display: flex;
     align-items: center;
     flex-direction: column;
-    border-top: #e0ff4f 3px dashed;
-    border-bottom: #e0ff4f 3px dashed;
+    border-top: var(--main-light) 3px dashed;
+    border-bottom: var(--main-light) 3px dashed;
     height: 40vh;
 }
 
 #select-sub, #form {
-    border-bottom: #e0ff4f 3px dashed;
+    border-bottom: var(--main-light) 3px dashed;
     margin-top: 50px;
 }
 
@@ -81,11 +99,11 @@ input::placeholder {
     align-items: center;
     width: 172px;
     height: 40px;
-    background: #00272b;
-    color: #e0ff4f;
+    background: var(--main-dark);
+    color: var(--main-light);
     border-radius: 5px;
     gap: 10px;
-    box-shadow: 0 0 5px 1px #e0ff4f;
+    box-shadow: 0 0 5px 1px var(--main-light);
 
 }
 
@@ -95,11 +113,11 @@ input::placeholder {
     align-items: center;
     width: 60px;
     height: 40px;
-    background: #00272b;
-    color: #e0ff4f;
+    background: var(--main-dark);
+    color: var(--main-light);
     border-radius: 5px;
     gap: 10px;
-    box-shadow: 0 0 5px 1px #e0ff4f;
+    box-shadow: 0 0 5px 1px var(--main-light);
 }
 
 
@@ -111,7 +129,7 @@ input::placeholder {
 h1,
 h2,
 h3 {
-    color: #e0ff4f;
+    color: var(--main-light);
 }
 
 input,

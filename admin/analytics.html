@@ -2,34 +2,30 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-title" content="Lyceum">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Аналітика зауважень</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <link rel="stylesheet" href="style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon.jpeg">
+  <link rel="apple-touch-icon" sizes="152x152" href="../favicon.jpeg">
+  <link rel="apple-touch-icon" sizes="120x120" href="../favicon.jpeg">
   <link rel="shortcut icon" href="../favicon.jpeg" type="image/x-icon">
-  <style>
-    .section {
-      display: none;
-    }
-    .active {
-      display: block;
-    }
-    canvas {
-      max-width: 300px;
-      margin: 20px 0;
-    }
-  </style>
+
 </head>
 <body>
     <h1><a href="./index.html">Аналітика зауважень</a></h1>
-    <nav>
-      <button onclick="showSection('period')">Кількість зауважень за період</button>
+    <nav id="navAnalytics">
+      <button onclick="showSection('period')">Кількість зауважень</button>
       <button onclick="showSection('charts')">Графіки та діаграми</button>
       <button onclick="showSection('teachers')">Зауваження по вчителях</button>
       <button onclick="showSection('students')">Зауваження по учнях</button>
       <button onclick="showSection('subjects')">Зауваження по предметах</button>
       <button onclick="showSection('activity')">Активність вчителів</button>
-      <button onclick="showSection('allStudents')">Список усіх учнів</button>
+      <button onclick="showSection('allStudents')">Список усіх <br> учнів</button>
       <button onclick="showSection('allTeachers')">Список усіх вчителів</button>
       <button onclick="showSection('allRemarks')">Всі зауваження</button>
     </nav>
