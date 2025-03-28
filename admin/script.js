@@ -20,7 +20,7 @@ function loadClasses() {
 async function loginAdmin() {
     const pass = document.getElementById('adminPass').value;
 
-    if (pass === 'helloworld') {
+    if (pass === 'lyceum') {
         localStorage.setItem('isAdminLoggedIn', 'true');
 
         document.getElementById('adminPanel').style.display = 'block';
