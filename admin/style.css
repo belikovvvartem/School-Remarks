@@ -40,6 +40,11 @@ a {
     display: block;
 }
 
+#allTeachersList, #allStudents {
+    user-select: all;
+    -webkit-user-select: auto;
+}
+
 
 canvas {
     max-width: 330px;
