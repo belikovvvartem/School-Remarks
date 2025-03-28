@@ -16,6 +16,10 @@ body {
     padding: 5px;
 }
 
+h2 {
+    width: 100%;
+}
+
 .goToAbalytics {
     position: fixed;
     top: 25px;
@@ -30,15 +34,23 @@ a {
 
 .section {
     display: none;
-  }
-  .active {
+}
+
+.active {
     display: block;
+}
+
+
+canvas {
+    max-width: 330px;
+    max-height: 600px;
+    margin: 20px 0;
   }
 
 
 #navAnalytics button {
-width: 45%;
-height: 60px;
+    width: 45%;
+    height: 60px;
 }
 
 #logIn {
@@ -53,7 +65,8 @@ height: 60px;
 }
 
 input:not(#select-sub input, #form input),
-button, select {
+button,
+select {
     width: 300px;
     height: 40px;
     background: var(--main-dark);
@@ -69,7 +82,7 @@ input::placeholder {
     color: var(--main-light);
 }
 
-#addTeacher{
+#addTeacher {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -78,7 +91,8 @@ input::placeholder {
     height: 40vh;
 }
 
-#select-sub, #form {
+#select-sub,
+#form {
     border-bottom: var(--main-light) 3px dashed;
     margin-top: 50px;
 }
@@ -93,7 +107,7 @@ input::placeholder {
 
 }
 
-#select-sub label{
+#select-sub label {
     display: flex;
     box-sizing: border-box;
     align-items: center;
