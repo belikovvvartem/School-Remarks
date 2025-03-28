@@ -72,7 +72,8 @@ input::placeholder {
     background: #00272b;
     color: #e0ff4f;
     border-radius: 5px;
-    border: 2px dashed #e0ff4f;
+    gap: 10px;
+    box-shadow: 0 0 5px 1px #e0ff4f;
 
 }
 
@@ -85,7 +86,8 @@ input::placeholder {
     background: #00272b;
     color: #e0ff4f;
     border-radius: 5px;
-    border: 2px dashed #e0ff4f;
+    gap: 10px;
+    box-shadow: 0 0 5px 1px #e0ff4f;
 }
 
 
