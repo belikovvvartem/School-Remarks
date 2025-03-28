@@ -1,4 +1,113 @@
-body { font-family: Arial, sans-serif; margin: 20px; }
-h1, h2, h3 { color: #333; }
-input, select, button { margin: 5px; padding: 5px; }
-#classes { max-height: 200px; overflow-y: auto; }
+@import url(https://fonts.googleapis.com/css2?family=Oswald:wght@100;200;300;400;500;600;700&display=swap);
+
+
+body {
+    font-family: 'Oswald', sans-serif;
+    background: #00272b;
+    color: #e0ff4f;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    padding: 5px;
+}
+
+#logIn {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+input:not(#select-sub input, #form input),
+button, select {
+    width: 300px;
+    height: 40px;
+    background: #00272b;
+    border: 3px solid #e0ff4f;
+    border-radius: 100px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    color: #e0ff4f;
+    margin-top: 15px;
+}
+
+input::placeholder {
+    color: #e0ff4f;
+}
+
+#addTeacher{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-top: #e0ff4f 3px dashed;
+    border-bottom: #e0ff4f 3px dashed;
+    height: 40vh;
+}
+
+#select-sub, #form {
+    border-bottom: #e0ff4f 3px dashed;
+    margin-top: 50px;
+}
+
+#subject,
+#classes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+
+}
+
+#select-sub label{
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    width: 172px;
+    height: 40px;
+    background: #00272b;
+    color: #e0ff4f;
+    border-radius: 5px;
+    border: 2px dashed #e0ff4f;
+
+}
+
+#classes label {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    width: 60px;
+    height: 40px;
+    background: #00272b;
+    color: #e0ff4f;
+    border-radius: 5px;
+    border: 2px dashed #e0ff4f;
+}
+
+
+
+
+
+
+/*
+h1,
+h2,
+h3 {
+    color: #e0ff4f;
+}
+
+input,
+select,
+button {
+    margin: 5px;
+    padding: 5px;
+}
+
+#classes {
+    max-height: 200px;
+    overflow-y: auto;
+}

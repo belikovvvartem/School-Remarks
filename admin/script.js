@@ -21,6 +21,7 @@ async function loginAdmin() {
   const pass = document.getElementById('adminPass').value;
   if (pass === 'admin123') {
     document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('logIn').style.display = 'none';
     loadClasses();
     await loadRemarks();
   } else {
