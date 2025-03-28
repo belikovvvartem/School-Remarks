@@ -8,7 +8,7 @@ const teacherSessions = new Map();
 const parentSubscriptions = new Map();
 
 bot.start((ctx) => {
-  ctx.reply('Введіть ваш код (3 цифри):');
+  ctx.reply('Введіть ваш 🆔(3 цифри):');
 });
 
 bot.on('text', async (ctx) => {
@@ -26,16 +26,16 @@ bot.on('text', async (ctx) => {
     } else if (!studentsSnapshot.empty) {
       const student = studentsSnapshot.docs[0].data();
       if (!parentSubscriptions.has(chatId)) parentSubscriptions.set(chatId, []);
-      parentSubscriptions.get(chatId).push(text);
+      parentSubscriptions.get(chatId).push(text); 
       ctx.reply(
-        `Дитина "${student.name}" додана. Додати ще когось?`,
+        `Дитина 🧑‍🎓"${student.name}" додана. Додати ще когось?`,
         Markup.inlineKeyboard([
           [Markup.button.callback('Додати ще', 'add_more')],
           [Markup.button.callback('Ні', 'done')]
         ])
       );
     } else {
-      ctx.reply('Невірний код. Спробуйте ще раз.');
+      ctx.reply('Невірний 🆔. Спробуйте ще раз 🔄.');
     }
   } else if (teacherSessions.has(chatId)) {
     const session = teacherSessions.get(chatId);
@@ -54,29 +54,29 @@ bot.on('text', async (ctx) => {
       showMainMenu(ctx, session.teacher.name);
     }
   } else {
-    ctx.reply('Будь ласка, введіть коректний код (3 цифри).');
+    ctx.reply('Будь ласка, введіть коректний 🆔.');
   }
 });
 
 function showMainMenu(ctx, teacherName) {
-  ctx.reply(`Вітаю, ${teacherName}! Що бажаєте зробити?`, Markup.inlineKeyboard([
-    [Markup.button.callback('Дати зауваження', 'add_remark')]
+  ctx.reply(`Вітаю, 👩‍🏫${teacherName}! Що бажаєте зробити?`, Markup.inlineKeyboard([
+    [Markup.button.callback('Дати зауваження 🚨', 'add_remark')]
   ]));
 }
 
 bot.action('add_more', (ctx) => {
-  ctx.reply('Введіть код ще однієї дитини (3 цифри):');
+  ctx.reply('Введіть 🆔 ще однієї дитини:');
 });
 
 bot.action('done', (ctx) => {
-  ctx.reply('Дякую! Ви будете отримувати сповіщення про зауваження.');
+  ctx.reply('Дякую! Ви будете отримувати сповіщення про зауваження 📳.');
 });
 
 bot.action('add_remark', (ctx) => {
   const chatId = ctx.from.id;
   const session = teacherSessions.get(chatId);
   const buttons = session.teacher.subjects.map(subject => [Markup.button.callback(subject, `subject_${subject}`)]);
-  buttons.push([Markup.button.callback('До головного меню', 'main_menu')]);
+  buttons.push([Markup.button.callback('До головного меню 🔄', 'main_menu')]);
   ctx.reply('Виберіть урок:', Markup.inlineKeyboard(buttons));
   session.step = 'subject';
 });
@@ -87,8 +87,8 @@ bot.action(/subject_(.+)/, async (ctx) => {
   const session = teacherSessions.get(chatId);
   session.subject = subject;
   const buttons = session.teacher.classes.map(cls => [Markup.button.callback(cls, `class_${cls}`)]);
-  buttons.push([Markup.button.callback('Назад', 'back_to_subjects')]);
-  buttons.push([Markup.button.callback('До головного меню', 'main_menu')]);
+  buttons.push([Markup.button.callback('Назад 🔄', 'back_to_subjects')]);
+  buttons.push([Markup.button.callback('До головного меню 🔄', 'main_menu')]);
   ctx.reply('Виберіть клас:', Markup.inlineKeyboard(buttons));
   session.step = 'class';
 });
@@ -100,9 +100,9 @@ bot.action(/class_(.+)/, async (ctx) => {
   session.class = cls;
   const studentsSnapshot = await getDocs(query(collection(db, 'students'), where('class', '==', cls)));
   const buttons = studentsSnapshot.docs.map(doc => [Markup.button.callback(doc.data().name, `student_${doc.data().name}`)]);
-  buttons.push([Markup.button.callback('Назад', 'back_to_classes')]);
-  buttons.push([Markup.button.callback('До головного меню', 'main_menu')]);
-  ctx.reply('Виберіть учня:', Markup.inlineKeyboard(buttons));
+  buttons.push([Markup.button.callback('Назад 🔄', 'back_to_classes')]);
+  buttons.push([Markup.button.callback('До головного меню 🔄', 'main_menu')]);
+  ctx.reply('Виберіть учня 🧑‍🎓:', Markup.inlineKeyboard(buttons));
   session.step = 'student';
 });
 
@@ -111,9 +111,9 @@ bot.action(/student_(.+)/, (ctx) => {
   const chatId = ctx.from.id;
   const session = teacherSessions.get(chatId);
   session.student = student;
-  ctx.reply('Введіть текст зауваження:', Markup.inlineKeyboard([
-    [Markup.button.callback('Назад', 'back_to_students')],
-    [Markup.button.callback('До головного меню', 'main_menu')]
+  ctx.reply('Введіть текст зауваження 🚨:', Markup.inlineKeyboard([
+    [Markup.button.callback('Назад 🔄', 'back_to_students')],
+    [Markup.button.callback('До головного меню 🔄', 'main_menu')]
   ]));
   session.step = 'remark_text';
 });
@@ -122,7 +122,7 @@ bot.action('back_to_subjects', (ctx) => {
   const chatId = ctx.from.id;
   const session = teacherSessions.get(chatId);
   const buttons = session.teacher.subjects.map(subject => [Markup.button.callback(subject, `subject_${subject}`)]);
-  buttons.push([Markup.button.callback('До головного меню', 'main_menu')]);
+  buttons.push([Markup.button.callback('До головного меню 🔄', 'main_menu')]);
   ctx.reply('Виберіть урок:', Markup.inlineKeyboard(buttons));
   session.step = 'subject';
 });
@@ -131,8 +131,8 @@ bot.action('back_to_classes', (ctx) => {
   const chatId = ctx.from.id;
   const session = teacherSessions.get(chatId);
   const buttons = session.teacher.classes.map(cls => [Markup.button.callback(cls, `class_${cls}`)]);
-  buttons.push([Markup.button.callback('Назад', 'back_to_subjects')]);
-  buttons.push([Markup.button.callback('До головного меню', 'main_menu')]);
+  buttons.push([Markup.button.callback('Назад 🔄', 'back_to_subjects')]);
+  buttons.push([Markup.button.callback('До головного меню 🔄', 'main_menu')]);
   ctx.reply('Виберіть клас:', Markup.inlineKeyboard(buttons));
   session.step = 'class';
 });
@@ -142,8 +142,8 @@ bot.action('back_to_students', async (ctx) => {
   const session = teacherSessions.get(chatId);
   const studentsSnapshot = await getDocs(query(collection(db, 'students'), where('class', '==', session.class)));
   const buttons = studentsSnapshot.docs.map(doc => [Markup.button.callback(doc.data().name, `student_${doc.data().name}`)]);
-  buttons.push([Markup.button.callback('Назад', 'back_to_classes')]);
-  buttons.push([Markup.button.callback('До головного меню', 'main_menu')]);
+  buttons.push([Markup.button.callback('Назад 🔄', 'back_to_classes')]);
+  buttons.push([Markup.button.callback('До головного меню 🔄', 'main_menu')]);
   ctx.reply('Виберіть учня:', Markup.inlineKeyboard(buttons));
   session.step = 'student';
 });
