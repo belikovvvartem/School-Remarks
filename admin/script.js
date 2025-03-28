@@ -22,6 +22,7 @@ async function loginAdmin() {
   if (pass === 'helloworld') {
     document.getElementById('adminPanel').style.display = 'block';
     document.getElementById('logIn').style.display = 'none';
+    document.getElementById('goToAbalytics').style.display = 'block';
     loadClasses();
     await loadRemarks();
   } else {
