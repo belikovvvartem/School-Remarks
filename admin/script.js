@@ -19,7 +19,7 @@ function loadClasses() {
 
 async function loginAdmin() {
   const pass = document.getElementById('adminPass').value;
-  if (pass === 'admin123') {
+  if (pass === 'helloworld') {
     document.getElementById('adminPanel').style.display = 'block';
     document.getElementById('logIn').style.display = 'none';
     loadClasses();
