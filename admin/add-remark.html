@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Додати зауваження</title>
+    <link rel="stylesheet" href="remark.css">
+    <link rel="shortcut icon" href="../favicon.jpeg" type="image/x-icon">
+</head>
+
+<body>
+        <div id="teacherGreeting" class="teacher-greeting"></div>
+        <div class="nav" id="nav">
+        <button id="exit" class="navBtn" onclick="location.reload()"><img src="./remove.png" alt="" style="width: 40px;"></button>
+        <button id="howToUs" class="navBtn"><img src="./info.png" alt="" style="width: 40px;"></button>
+        </div>
+
+    <h1>Додати зауваження</h1>
+
+    <div id="teacherLogin" class="form-section active">
+        <label for="teacherCode">Введіть ваш 🆔 вчителя (3 цифри):</label>
+        <input type="text" id="teacherCode" maxlength="3" placeholder="Ваш ID" autocomplete="off">
+        <button onclick="verifyTeacher()">Увійти</button>
+    </div>
+
+    <div id="remarkForm" class="form-section">
+        <label for="subject">Оберіть предмет:</label>
+        <select id="subject"></select>
+
+        <label for="class">Оберіть клас:</label>
+        <select id="class" onchange="loadStudents()"></select>
+
+        <label for="student">Оберіть учня:</label>
+        <select id="student"></select>
+
+        <label for="remarkText">Текст зауваження:</label>
+        <textarea id="remarkText" rows="4" placeholder="Введіть текст зауваження"></textarea>
+
+        <button onclick="addRemark()">Додати зауваження</button>
+    </div>
+
+
+
+
+
+
+    <div id="instructions" class="modal">
+        <div class="modal-content">
+            <button id="closeModal" class="close-btn"><img class="close-btn-img" src="./remove.png" alt="" style="width: 40px;"></button>
+            <h2>📋 Інструкція для вчителя: Як додати зауваження</h2>
+
+            <h3>1. 🔑 Увійдіть за допомогою вашого коду:</h3>
+            <ul>
+              <li>👩‍🏫 Введіть ваш унікальний код вчителя (наприклад, <strong>123</strong>).</li>
+              <li>✅ Натисніть кнопку <strong>"Увійти"</strong>.</li>
+            </ul>
+          
+            <h3>2. 📝 Заповніть форму для додавання зауваження:</h3>
+            <ul>
+              <li>📚 <strong>Оберіть предмет</strong>.</li>
+              <li>🏫 <strong>Оберіть клас</strong>.</li>
+              <li>👨‍🎓 <strong>Оберіть учня</strong>.</li>
+              <li>✍️ <strong>Введіть зауваження</strong>.</li>
+            </ul>
+          
+            <h3>3. 🚀 Надішліть зауваження:</h3>
+            <ul>
+              <li>✔️ Переконайтеся, що всі поля заповнені.</li>
+              <li>📤 Натисніть кнопку <strong>"Додати зауваження"</strong>.</li>
+              <li>🎉 Якщо зауваження успішно додано, з’явиться повідомлення: <strong>"Зауваження успішно додано!"</strong></li>
+            </ul>
+          
+            <h3>4. 📩 Зауваження надсилається батькам:</h3>
+            <ul>
+              <li>👪 Батьки учня отримають повідомлення в Telegram у форматі:</li>
+                <pre>
+          Нове зауваження:
+          [Ваше Ім’я] ([Предмет], [Клас]): [Ім’я Учня] - [Текст зауваження]
+                </pre>
+            </ul>
+          
+            <h3>5. 🔄 Додайте нове зауваження або вийдіть.</h3>
+        </div>
+    </div>
+
+    <div id="notification">
+        <span id="notificationText"></span>
+        <div id="progressBar">
+            <div id="progress"></div>
+        </div>
+    </div>
+
+    <script type="module" src="add-remark.js"></script>
+
+</body>
+
+</html>

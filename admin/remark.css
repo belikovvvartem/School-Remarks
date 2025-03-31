@@ -1,0 +1,282 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #333;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+.form-section {
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 100;
+}
+
+#teacherLogin,
+#remarkForm {
+    width: 30%;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.695);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #7ac87a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 50px;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+button:hover {
+    background-color: #5ec95e;
+}
+
+textarea {
+    resize: none;
+    height: 150px;
+}
+
+
+
+
+#teacherLogin,
+#remarkForm {
+    display: none;
+}
+
+#teacherLogin.active,
+#remarkForm.active {
+    display: block;
+}
+
+.ball {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: spin 4s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#notification {
+    position: fixed;
+    top: 80px;
+    right: -300px;
+    width: 250px;
+    padding: 15px;
+    background-color: #28a74688;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+#notification.error {
+    background-color: #dc354682;
+}
+
+#notification.show {
+    right: 20px;
+}
+
+#progressBar {
+    width: 100%;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin-top: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+#progress {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    animation: progress 3s linear forwards;
+}
+
+@keyframes progress {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0;
+    }
+}
+
+.teacher-greeting {
+    display: none;
+    padding: 15px 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 0 0 40px 0;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70px;
+    height: 60px;
+    padding: 0;
+    gap: 0px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 0 0 0 40px;
+    z-index: 100;
+}
+
+.navBtn {
+    background: none;
+    margin-top: -10px;
+}
+
+#exit {
+    display: none;
+    margin-right: -20px;
+}
+
+.navBtn:hover {
+    background: none;
+}
+
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    padding: 25px;
+    border-radius: 30px;
+    min-width: 300px;
+    color: white;
+    box-shadow: 0 0 100px 1px gray;
+}
+
+.close-btn {
+    background: none;
+}
+
+.close-btn-img {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background: none;
+}
+
+
+.modal-content h2 {
+    text-align: center;
+    margin-top: -40px;
+  }
+  .modal-content h3 {
+    margin-top: 20px;
+  }
+  .modal-content ul {
+    padding-left: 20px;
+  }
+  .modal-content li {
+    margin-bottom: 10px;
+  }
+  .modal-content pre {
+    background-color: #f4f4f4;
+    padding: 10px 0 0 0;
+    width: 80%;
+    border-radius: 5px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    color: #333;
+  }
