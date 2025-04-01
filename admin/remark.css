@@ -7,6 +7,7 @@ body {
     background-color: #333;
     overflow: hidden;
     font-family: Arial, sans-serif;
+    position: relative;
 }
 
 h1 {
@@ -31,7 +32,7 @@ h1 {
 
 #teacherLogin,
 #remarkForm {
-    width: 30%;
+    width: 45%;
     font-size: 25px;
     font-weight: 700;
 }
@@ -369,4 +370,11 @@ textarea {
         right: 30px;
     }
 
+}
+
+@media (max-height: 720px) {
+    body {
+        overflow-y: scroll;
+        height: 720px;
+    }
 }

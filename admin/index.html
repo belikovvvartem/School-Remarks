@@ -28,7 +28,7 @@
         <div id="addTeacher">
             <h2>Додати вчителя</h2>
             <input type="text" id="teacherName" placeholder="Ім’я вчителя">
-            <input type="text" id="teacherCode" placeholder="Код (3 цифри, залиште пустим для автогенерації)">
+            <input type="text" id="teacherCode" placeholder="Код (3 цифри, залиште пустим для автогенерації)" autocomplete="off">
         </div>
         <div id="select-sub">
             <h3>Предмети:</h3><br>
@@ -78,11 +78,19 @@
         <input type="text" id="studentName" placeholder="Ім’я учня">
         <select id="studentClass">
         </select>
-        <input type="text" id="studentCode" placeholder="Код (3 цифри, залиште пустим для автогенерації)">
+        <input type="text" id="studentCode" placeholder="Код (3 цифри, залиште пустим для автогенерації)" autocomplete="off">
         <button onclick="addStudent()">Додати учня</button>
-
+        <div id="remark-list-index">
         <h2>Зауваження</h2>
         <div id="remarksList"></div>
+        </div>
+    </div>
+
+    <div id="notification">
+        <span id="notificationText"></span>
+        <div id="progressBar">
+            <div id="progress"></div>
+        </div>
     </div>
     <script type="module" src="script.js"></script>
 </body>

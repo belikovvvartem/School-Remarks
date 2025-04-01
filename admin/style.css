@@ -24,6 +24,7 @@ h2 {
     position: fixed;
     top: 25px;
     right: 25px;
+    display: none;
 }
 
 a {
@@ -138,7 +139,55 @@ input::placeholder {
     box-shadow: 0 0 5px 1px var(--main-light);
 }
 
+#notification {
+    position: fixed;
+    top: 80px;
+    right: -300px;
+    width: 250px;
+    padding: 15px;
+    background-color: #28a74688;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.5s ease-in-out;
+    z-index: 1000;
+}
 
+#notification.error {
+    background-color: #dc354682;
+}
+
+#notification.show {
+    right: 20px;
+}
+
+#progressBar {
+    width: 100%;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin-top: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+#progress {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    animation: progress 3s linear forwards;
+}
+
+@keyframes progress {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0;
+    }
+}
 
 
 
