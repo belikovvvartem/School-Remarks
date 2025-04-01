@@ -26,7 +26,7 @@ async function verifyTeacher() {
   document.getElementById('teacherLogin').classList.remove('active');
   document.getElementById('remarkForm').classList.add('active');
   const teacherGreeting = document.getElementById('teacherGreeting');
-  teacherGreeting.textContent = `Вітаємо, 👩‍🏫 ${teacher.name}`; 
+  teacherGreeting.innerHTML = `Вітаємо,<br>👩‍🏫 ${teacher.name}`;
   teacherGreeting.style.display = 'block';
   const btnExit = document.getElementById('exit');
   btnExit.style.display = 'block';

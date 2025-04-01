@@ -188,7 +188,7 @@ textarea {
     top: 0;
     right: 0;
     width: 70px;
-    height: 60px;
+    height: 60px !important;
     padding: 0;
     gap: 0px;
     background: rgba(255, 255, 255, 0.3);
@@ -224,7 +224,7 @@ textarea {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
 
@@ -257,21 +257,24 @@ textarea {
     background: none;
 }
 
-
 .modal-content h2 {
     text-align: center;
     margin-top: -40px;
-  }
-  .modal-content h3 {
+}
+
+.modal-content h3 {
     margin-top: 20px;
-  }
-  .modal-content ul {
+}
+
+.modal-content ul {
     padding-left: 20px;
-  }
-  .modal-content li {
+}
+
+.modal-content li {
     margin-bottom: 10px;
-  }
-  .modal-content pre {
+}
+
+.modal-content pre {
     background-color: #f4f4f4;
     padding: 10px 0 0 0;
     width: 80%;
@@ -279,4 +282,84 @@ textarea {
     font-family: monospace;
     white-space: pre-wrap;
     color: #333;
-  }
+}
+
+
+@media (max-width: 450px) {
+    #teacherLogin {
+        width: 85%;
+    }
+
+    #teacherGreeting,
+    .form-section,
+    .nav {
+        background: rgba(0, 0, 0, 0.447);
+
+    }
+
+    #teacherLogin,
+    #remarkForm {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    input, button {
+        height: 40px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    #remarkForm {
+        width: 85%;
+    }
+
+    .ball {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    .nav {
+        flex-direction: column;
+        width: 70px !important;
+        height: 110px !important;
+        gap: 15px;
+    }
+
+    #exit {
+        margin-right: 0;
+    }
+
+    .modal-content {
+        width: 95%;
+        height: 95%;
+    }
+    
+    .modal-content h2 {
+        font-size: 18px;
+    }
+    
+    .modal-content h3 {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+    
+    .modal-content ul {
+        padding-left: 10px;
+    }
+    
+    .modal-content li {
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+    
+    .modal-content pre {
+        font-size: 12px;
+        width: 90%;
+    }
+
+    .close-btn-img {
+        top: 20px;
+        right: 30px;
+    }
+
+}
