@@ -286,6 +286,7 @@ textarea {
 
 
 @media (max-width: 450px) {
+
     #teacherLogin {
         width: 85%;
     }
@@ -301,6 +302,10 @@ textarea {
     #remarkForm {
         font-size: 18px;
         font-weight: 600;
+    }
+
+    #remarkForm  {
+        margin-top: 50px;
     }
 
     input, button {
@@ -327,6 +332,10 @@ textarea {
 
     #exit {
         margin-right: 0;
+    }
+
+    .modal {
+        overflow-y: auto;
     }
 
     .modal-content {
