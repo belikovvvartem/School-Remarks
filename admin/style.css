@@ -2,8 +2,8 @@
 
 
 :root {
-    --main-light: #e1bb80;
-    --main-dark: #352208;
+    --main-light: white;
+    --main-dark: #333;
 }
 
 body {
@@ -20,11 +20,10 @@ h2 {
     width: 100%;
 }
 
-.goToAbalytics {
+.goToAnalytics {
     position: fixed;
     top: 25px;
     right: 25px;
-    display: none;
 }
 
 a {
@@ -143,22 +142,3 @@ input::placeholder {
 
 
 
-
-/*
-h1,
-h2,
-h3 {
-    color: var(--main-light);
-}
-
-input,
-select,
-button {
-    margin: 5px;
-    padding: 5px;
-}
-
-#classes {
-    max-height: 200px;
-    overflow-y: auto;
-}

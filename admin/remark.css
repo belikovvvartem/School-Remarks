@@ -284,9 +284,7 @@ textarea {
     color: #333;
 }
 
-
 @media (max-width: 450px) {
-
     #teacherLogin {
         width: 85%;
     }
