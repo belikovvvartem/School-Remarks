@@ -7,8 +7,40 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 const teacherSessions = new Map();
 const parentSubscriptions = new Map();
 
-bot.start((ctx) => {
-  ctx.reply('Введіть ваш 🆔(3 цифри):');
+async function loadSubscriptions() {
+  const subscriptionsSnapshot = await getDocs(collection(db, 'parentSubscriptions'));
+  subscriptionsSnapshot.forEach(doc => {
+    const data = doc.data();
+    parentSubscriptions.set(data.chatId, data.codes);
+  });
+}
+
+async function saveSubscriptions(chatId, codes) {
+  const subscriptionsSnapshot = await getDocs(query(collection(db, 'parentSubscriptions'), where('chatId', '==', chatId.toString())));
+  if (subscriptionsSnapshot.empty) {
+    await addDoc(collection(db, 'parentSubscriptions'), { chatId: chatId.toString(), codes });
+  } else {
+    const docId = subscriptionsSnapshot.docs[0].id;
+    await updateDoc(doc(db, 'parentSubscriptions', docId), { codes });
+  }
+}
+
+bot.start(async (ctx) => {
+  await loadSubscriptions();
+  const chatId = ctx.from.id;
+  if (parentSubscriptions.has(chatId) && parentSubscriptions.get(chatId).length > 0) {
+    const studentNames = await Promise.all(parentSubscriptions.get(chatId).map(async (code) => {
+      const studentSnapshot = await getDocs(query(collection(db, 'students'), where('code', '==', code)));
+      return studentSnapshot.empty ? null : studentSnapshot.docs[0].data().name;
+    }));
+    const validNames = studentNames.filter(name => name).join(', ');
+    ctx.reply(`Ви вже підписані на сповіщення для: ${validNames}. Додати ще когось?`, Markup.inlineKeyboard([
+      [Markup.button.callback('Додати ще', 'add_more')],
+      [Markup.button.callback('Ні', 'done')]
+    ]));
+  } else {
+    ctx.reply('Введіть ваш 🆔(3 цифри):');
+  }
 });
 
 bot.on('text', async (ctx) => {
@@ -26,7 +58,12 @@ bot.on('text', async (ctx) => {
     } else if (!studentsSnapshot.empty) {
       const student = studentsSnapshot.docs[0].data();
       if (!parentSubscriptions.has(chatId)) parentSubscriptions.set(chatId, []);
-      parentSubscriptions.get(chatId).push(text); 
+      const currentCodes = parentSubscriptions.get(chatId);
+      if (!currentCodes.includes(text)) {
+        currentCodes.push(text);
+        parentSubscriptions.set(chatId, currentCodes);
+        await saveSubscriptions(chatId, currentCodes);
+      }
       ctx.reply(
         `Дитина 🧑‍🎓"${student.name}" додана. Додати ще когось?`,
         Markup.inlineKeyboard([
