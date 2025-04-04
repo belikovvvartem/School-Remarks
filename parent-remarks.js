@@ -1,10 +1,15 @@
 let studentCodes = JSON.parse(localStorage.getItem('studentCodes')) || [];
+let studentNamesMap = new Map();
+let currentFilter = 'all';
 
 window.onload = function () {
     if (studentCodes.length > 0) {
         document.getElementById('parentLogin').classList.remove('active');
         document.getElementById('remarksList').classList.add('active');
-        loadRemarks();
+        loadStudentNames().then(() => {
+            populateFilter();
+            loadRemarks();
+        });
     }
 
     document.getElementById('addStudentButton').addEventListener('click', addStudentCode);
@@ -31,6 +36,8 @@ async function addStudentCode() {
     if (!studentCodes.includes(code)) {
         studentCodes.push(code);
         localStorage.setItem('studentCodes', JSON.stringify(studentCodes));
+        const studentName = studentsSnapshot.docs[0].data().name;
+        studentNamesMap.set(code, studentName);
     }
 
     document.getElementById('parentLogin').classList.remove('active');
@@ -46,26 +53,64 @@ function addMoreStudent() {
 function showRemarks() {
     document.getElementById('addMorePrompt').classList.remove('active');
     document.getElementById('remarksList').classList.add('active');
-    loadRemarks();
+    loadStudentNames().then(() => {
+        populateFilter();
+        loadRemarks();
+    });
+}
+
+async function loadStudentNames() {
+    const studentsSnapshot = await firebase.firestore().collection('students').where('code', 'in', studentCodes).get();
+    studentNamesMap.clear();
+    studentsSnapshot.forEach(doc => {
+        studentNamesMap.set(doc.data().code, doc.data().name);
+    });
+}
+
+function populateFilter() {
+    const filterButtons = document.getElementById('filterButtons');
+    filterButtons.innerHTML = '<button class="filter-button active" data-code="all">Усі діти</button>';
+    studentCodes.forEach((code, index) => {
+        const name = studentNamesMap.get(code) || `Дитина ${index + 1}`;
+        filterButtons.innerHTML += `<button class="filter-button" data-code="${code}">${name}</button>`;
+    });
+
+    const filterSection = document.getElementById('filterSection');
+    filterSection.style.display = studentCodes.length > 1 ? 'block' : 'none';
+
+    document.querySelectorAll('.filter-button').forEach(button => {
+        button.addEventListener('click', () => {
+            document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            currentFilter = button.getAttribute('data-code');
+            loadRemarks();
+        });
+    });
 }
 
 function loadRemarks() {
     const remarksContainer = document.getElementById('remarksContainer');
-    firebase.firestore().collection('students').where('code', 'in', studentCodes).get().then(studentsSnapshot => {
-        const studentNames = studentsSnapshot.docs.map(doc => doc.data().name);
+    const noRemarks = document.getElementById('noRemarks');
+    const filteredNames = currentFilter === 'all' 
+        ? Array.from(studentNamesMap.values()) 
+        : [studentNamesMap.get(currentFilter)];
 
-        firebase.firestore().collection('remarks').onSnapshot(snapshot => {
-            const remarks = [];
-            snapshot.forEach(doc => {
-                const remark = doc.data();
-                if (studentNames.includes(remark.student)) {
-                    remarks.push(remark);
-                }
-            });
+    firebase.firestore().collection('remarks').onSnapshot(snapshot => {
+        const remarks = [];
+        snapshot.forEach(doc => {
+            const remark = doc.data();
+            if (filteredNames.includes(remark.student)) {
+                remarks.push(remark);
+            }
+        });
 
-            remarks.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        remarks.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-            remarksContainer.innerHTML = '';
+        remarksContainer.innerHTML = '';
+        if (remarks.length === 0) {
+            noRemarks.classList.add('show');
+        } else {
+            noRemarks.classList.remove('show');
             remarks.forEach(remark => {
                 const date = new Date(remark.timestamp);
                 const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`;
@@ -78,7 +123,7 @@ function loadRemarks() {
                     </div>
                 `;
             });
-        });
+        }
     });
 }
 
@@ -92,6 +137,7 @@ function hideConfirmModal() {
 
 function resetCodes() {
     studentCodes = [];
+    studentNamesMap.clear();
     localStorage.removeItem('studentCodes');
     document.getElementById('confirmModal').classList.remove('show');
     document.getElementById('remarksList').classList.remove('active');

@@ -60,6 +60,45 @@ h2 {
     background-color: #c82333;
 }
 
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section p {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+#filterButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-button {
+    width: 100px;
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.filter-button:hover {
+    background-color: #5a6268;
+}
+
+.filter-button.active {
+    background-color: #007bff;
+}
+
+.filter-button.active:hover {
+    background-color: #0056b3;
+}
+
 #remarksContainer .remark {
     background-color: #f9f9f9;
     padding: 10px;
@@ -85,18 +124,22 @@ h2 {
     margin: 5px 0;
 }
 
-.student-remark {
-    background: rgba(255, 166, 0, 0.582);
-    padding: 10px;
-    border-radius: 5px;
-}
-
 #remarksContainer .remark span {
     font-size: 12px;
     color: #777;
     display: block;
     margin-top: 5px;
-    text-align: end;
+}
+
+#noRemarks {
+    display: none;
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+
+#noRemarks.show {
+    display: block;
 }
 
 #notification {
@@ -186,3 +229,18 @@ h2 {
 #cancelReset:hover {
     background-color: #c82333;
 }
+
+.student-remark {
+    background: rgba(255, 166, 0, 0.582);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#remarksContainer .remark span {
+    font-size: 12px;
+    color: #777;
+    display: block;
+    margin-top: 5px;
+    text-align: end;
+}
+
