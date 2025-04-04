@@ -78,35 +78,38 @@ h2 {
 
 .filter-button {
     width: 100px;
-    background-color: #6c757d;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 8px 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
     font-size: 14px;
-}
-
-.filter-button:hover {
-    background-color: #5a6268;
+    background: none;
+    border: 2px solid black;
 }
 
 .filter-button.active {
     background-color: #007bff;
+    color: white;
 }
 
-.filter-button.active:hover {
-    background-color: #0056b3;
+.filter-button:nth-child(1) {
+    width: 100%;
+}
+
+.filter-button:nth-child(2), .filter-button:nth-child(3) {
+    width: 48%;
 }
 
 #remarksContainer .remark {
     background-color: #f9f9f9;
     padding: 10px;
     border-left: 4px solid #007bff;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border-radius: 5px;
     font-size: 14px;
     color: #333;
+    box-shadow: 0 0 1px 0.1px grey;
 }
 
 #remarksContainer .teacher {
