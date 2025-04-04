@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="uk">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,20 +12,23 @@
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyC-yPpMl9odK5ARLJJA34-q5e_IeFdOP0w",
-            authDomain: "school-remarks-dobrianske.firebaseapp.com",
-            projectId: "school-remarks-dobrianske",
-            storageBucket: "school-remarks-dobrianske.firebasestorage.app",
-            messagingSenderId: "109159636975",
-            appId: "1:109159636975:web:e02e9644d6818940fce01a",
-            measurementId: "G-CDFJR46EGM"
+    authDomain: "school-remarks-dobrianske.firebaseapp.com",
+    projectId: "school-remarks-dobrianske",
+    storageBucket: "school-remarks-dobrianske.firebasestorage.app",
+    messagingSenderId: "109159636975",
+    appId: "1:109159636975:web:e02e9644d6818940fce01a",
+    measurementId: "G-CDFJR46EGM"
         };
         firebase.initializeApp(firebaseConfig);
     </script>
     <script src="parent-remarks.js"></script>
 </head>
-
 <body>
     <div id="parentLogin" class="form-section active">
+        <div class="header">
+            <h2>Додати дитину 🆔</h2>
+            <button id="backToRemarksButton" class="back-button"><img src="./close.png" alt=""></button>
+        </div>
         <label for="studentCode">Введіть 🆔 вашої дитини (3 цифри):</label>
         <input type="text" id="studentCode" maxlength="3" placeholder="Код дитини" autocomplete="off">
         <button id="addStudentButton">Додати</button>
@@ -39,8 +41,10 @@
     </div>
 
     <div id="remarksList" class="form-section">
-        <h2>Список зауважень 📋</h2>
-        <button id="resetButton">Почати спочатку</button>
+        <div class="header">
+            <h2>Список зауважень 📋</h2>
+            <button id="settingsButton" class="settings-button"><img src="./setting.png" alt=""></button>
+        </div>
         <div id="filterSection" class="filter-section">
             <p>Фільтрувати за дитиною:</p>
             <div id="filterButtons">
@@ -58,14 +62,34 @@
         </div>
     </div>
 
-    <div id="confirmModal" class="modal">
+    <div id="settingsModal" class="modal">
         <div class="modal-content">
-            <p>Якщо ви натискаєте цю кнопку, то вам потрібно буде заново ввести коди всіх ваших дітей. Підтвердити дію?
-            </p>
+            <div class="modal-header">
+                <h3>Налаштування</h3>
+                <button id="closeSettingsButton" class="close-button"><img src="./close.png" alt=""></button>
+            </div>
+            <button id="myChildrenButton">Мої діти</button>
+            <button id="addChildButton">Додати дитину</button>
+            <button id="resetButton">Почати спочатку</button>
+        </div>
+    </div>
+
+    <div id="myChildrenModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Мої діти</h3>
+                <button id="backButton" class="close-button"><img src="./close.png" alt=""></button>
+            </div>
+            <div id="childrenList"></div>
+        </div>
+    </div>
+
+    <div id="confirmResetModal" class="modal">
+        <div class="modal-content">
+            <p>Якщо ви натискаєте цю кнопку, то вам потрібно буде заново ввести коди всіх ваших дітей. Підтвердити дію?</p>
             <button id="confirmReset">Так</button>
             <button id="cancelReset">Ні</button>
         </div>
     </div>
 </body>
-
 </html>

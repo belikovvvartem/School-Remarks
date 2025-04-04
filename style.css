@@ -8,6 +8,7 @@ body {
 
 .form-section {
     display: none;
+    position: relative;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -46,18 +47,34 @@ button:hover {
     background-color: #0056b3;
 }
 
-h2 {
-    text-align: center;
-    color: #007bff;
-}
-
-#resetButton {
-    background-color: #dc3545;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-#resetButton:hover {
-    background-color: #c82333;
+h2 {
+    text-align: center;
+    color: #007bff;
+    margin: 0;
+}
+
+.settings-button, .back-button, .close-button {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    border: none;
+    background: none;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.settings-button:hover, .back-button:hover, .close-button:hover {
+    background: none;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
 }
 
 .filter-section {
@@ -74,6 +91,20 @@ h2 {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+}
+
+.student-remark {
+    background: rgba(255, 166, 0, 0.582);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#remarksContainer .remark span {
+    font-size: 12px;
+    color: #777;
+    display: block;
+    margin-top: 5px;
+    text-align: end;
 }
 
 .filter-button {
@@ -97,7 +128,7 @@ h2 {
     width: 100%;
 }
 
-.filter-button:nth-child(2), .filter-button:nth-child(3) {
+.filter-button:nth-child(2), .filter-button:nth-child(3), .filter-button:nth-child(4), .filter-button:nth-child(5) {
     width: 48%;
 }
 
@@ -105,11 +136,12 @@ h2 {
     background-color: #f9f9f9;
     padding: 10px;
     border-left: 4px solid #007bff;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border-radius: 5px;
     font-size: 14px;
     color: #333;
-    box-shadow: 0 0 1px 0.1px grey;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in forwards;
 }
 
 #remarksContainer .teacher {
@@ -195,25 +227,50 @@ h2 {
     z-index: 1000;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    animation: fadeInModal 0.3s ease-in forwards;
 }
 
 .modal.show {
     display: flex;
 }
 
+.modal.closing {
+    animation: fadeOutModal 0.3s ease-out forwards;
+}
+
 .modal-content {
+    position: relative;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     max-width: 400px;
     width: 90%;
+    height: 90%;
+    margin-bottom: -50px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-content h3 {
+    margin: 0;
+    color: #333;
 }
 
 .modal-content p {
     margin-bottom: 20px;
     color: #333;
+}
+
+#myChildrenButton, #addChildButton, #resetButton, #backButton, #confirmReset, #cancelReset {
+    margin: 5px 0;
 }
 
 #confirmReset {
@@ -233,17 +290,75 @@ h2 {
     background-color: #c82333;
 }
 
-.student-remark {
-    background: rgba(255, 166, 0, 0.582);
-    padding: 10px;
+#resetButton {
+    background-color: #dc3545;
+}
+
+#resetButton:hover {
+    background-color: #c82333;
+}
+
+#childrenList .child-info {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#childrenList .child-info.has-remarks {
+    border-left: 5px solid #dc3545; /* Червоний бордер, якщо є зауваження */
+}
+
+#childrenList .child-info.no-remarks {
+    border-left: 5px solid #28a745; /* Зелений бордер, якщо немає зауважень */
+}
+
+#childrenList .child-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+#childrenList .child-info .stats {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+#childrenList .child-info .stats p {
+    margin: 3px 0;
+    font-size: 13px;
+    color: #555;
+}
+
+#childrenList .child-info .delete-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border: none;
     border-radius: 5px;
-}
-
-#remarksContainer .remark span {
+    cursor: pointer;
     font-size: 12px;
-    color: #777;
-    display: block;
-    margin-top: 5px;
-    text-align: end;
+    margin-top: 10px;
 }
 
+#childrenList .child-info .delete-button:hover {
+    background-color: #c82333;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOutModal {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
