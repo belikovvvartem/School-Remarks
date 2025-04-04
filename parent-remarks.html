@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,17 +13,18 @@
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyC-yPpMl9odK5ARLJJA34-q5e_IeFdOP0w",
-    authDomain: "school-remarks-dobrianske.firebaseapp.com",
-    projectId: "school-remarks-dobrianske",
-    storageBucket: "school-remarks-dobrianske.firebasestorage.app",
-    messagingSenderId: "109159636975",
-    appId: "1:109159636975:web:e02e9644d6818940fce01a",
-    measurementId: "G-CDFJR46EGM"
+            authDomain: "school-remarks-dobrianske.firebaseapp.com",
+            projectId: "school-remarks-dobrianske",
+            storageBucket: "school-remarks-dobrianske.firebasestorage.app",
+            messagingSenderId: "109159636975",
+            appId: "1:109159636975:web:e02e9644d6818940fce01a",
+            measurementId: "G-CDFJR46EGM"
         };
         firebase.initializeApp(firebaseConfig);
     </script>
     <script src="parent-remarks.js"></script>
 </head>
+
 <body>
     <div id="parentLogin" class="form-section active">
         <div class="header">
@@ -86,10 +88,14 @@
 
     <div id="confirmResetModal" class="modal">
         <div class="modal-content">
-            <p>Якщо ви натискаєте цю кнопку, то вам потрібно буде заново ввести коди всіх ваших дітей. Підтвердити дію?</p>
+            <p>Якщо ви натискаєте цю кнопку, то вам потрібно буде заново ввести коди всіх ваших дітей. Підтвердити дію?
+            </p>
             <button id="confirmReset">Так</button>
             <button id="cancelReset">Ні</button>
         </div>
     </div>
+
+    
 </body>
+
 </html>

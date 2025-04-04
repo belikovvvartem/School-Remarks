@@ -114,12 +114,10 @@ function loadRemarks() {
         noRemarks.classList.remove('show');
     }
 
-    // Відписуємося від попереднього onSnapshot, якщо він існує
     if (unsubscribeRemarks) {
         unsubscribeRemarks();
     }
 
-    // Підписуємося на нові дані
     unsubscribeRemarks = firebase.firestore().collection('remarks').onSnapshot(snapshot => {
         remarksData = [];
         snapshot.forEach(doc => {
@@ -178,13 +176,11 @@ function showMyChildrenModal() {
         const studentRemarks = remarksData.filter(remark => remark.student === student.name);
         const remarkCount = studentRemarks.length;
 
-        // Підрахунок зауважень за предметами
         const subjectStats = {};
         studentRemarks.forEach(remark => {
             subjectStats[remark.subject] = (subjectStats[remark.subject] || 0) + 1;
         });
 
-        // Формуємо HTML для статистики
         let statsHTML = '<div class="stats">';
         if (Object.keys(subjectStats).length === 0) {
             statsHTML += '<p>Немає зауважень.</p>';
