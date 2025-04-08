@@ -297,3 +297,4 @@ function showNotification(message, isError = false) {
         notification.classList.remove('show');
     }, 3000);
 }
+
